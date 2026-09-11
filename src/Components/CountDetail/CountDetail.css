@@ -1,0 +1,174 @@
+.count-detail {
+  margin-top: 32px;
+  padding: 24px;
+  border: 1px solid #34383d;
+  border-radius: 16px;
+  background: #1f2124;
+}
+
+.count-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.count-detail-header h2 {
+  margin: 0;
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.count-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.count-detail-actions input {
+  width: 260px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #41464c;
+  border-radius: 8px;
+  background: #181a1d;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+.count-detail-actions input:focus {
+  border-color: #6d747c;
+}
+
+.count-detail-actions input::placeholder {
+  color: #858b92;
+}
+
+.count-detail-actions button {
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #41464c;
+  border-radius: 8px;
+  background: #292c30;
+  color: #dedede;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.count-detail-actions button:hover {
+  background: #34383d;
+  border-color: #555b62;
+}
+
+.count-detail-actions button:last-child {
+  background: #24384a;
+  border-color: #315b78;
+  color: #72b8e8;
+}
+
+.count-detail-actions button:last-child:hover {
+  background: #2b465c;
+}
+
+.count-detail-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 5px;
+  width: fit-content;
+  border-radius: 10px;
+  background: #181a1d;
+  border: 1px solid #34383d;
+}
+
+.count-detail-tabs button {
+  padding: 9px 17px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #92979d;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.count-detail-tabs button:hover {
+  background: #292c30;
+  color: #ffffff;
+}
+
+.count-detail-tabs button:first-child {
+  background: #3a4046;
+  color: #ffffff;
+}
+
+.count-detail-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #34383d;
+  border-radius: 12px;
+  background: #202326;
+}
+
+.count-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.count-detail-table th {
+  padding: 14px 18px;
+  background: #292c30;
+  border-bottom: 1px solid #3a3f44;
+  color: #9da3a9;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.count-detail-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #303438;
+  color: #d9dcdf;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.count-detail-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.count-detail-table tbody tr:hover {
+  background: #292c30;
+}
+
+.count-detail-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.count-detail-table th:nth-child(1),
+.count-detail-table td:nth-child(1) {
+  width: 35%;
+}
+
+.count-detail-table th:nth-child(2),
+.count-detail-table td:nth-child(2) {
+  width: 25%;
+}
+
+.count-detail-table th:nth-child(3),
+.count-detail-table td:nth-child(3) {
+  width: 22%;
+}
+
+.count-detail-table th:nth-child(4),
+.count-detail-table td:nth-child(4) {
+  width: 18%;
+}

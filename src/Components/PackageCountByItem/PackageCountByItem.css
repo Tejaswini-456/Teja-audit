@@ -1,0 +1,24 @@
+.package-count-by-item {
+  padding: 20px;
+  border: 1px solid #3a3d40;
+  border-radius: 14px;
+  background-color: #27292b;
+  margin: 20px 0;
+}
+
+.package-count-by-item h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.package-count-by-item p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #a5a5a5;
+}
+
+.package-count-chart {
+  width: 100%;
+  height: 400px;
+}

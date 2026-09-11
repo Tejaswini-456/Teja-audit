@@ -1,0 +1,34 @@
+.audit-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.summary-card {
+  padding: 20px;
+  border: 1px solid #3a3d40;
+  border-radius: 14px;
+  background-color: #27292b;
+  min-height: 120px;
+}
+
+.summary-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b8b8b8;
+}
+
+.summary-value {
+  margin: 0 0 6px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.summary-description {
+  margin: 0;
+  font-size: 14px;
+  color: #a5a5a5;
+}

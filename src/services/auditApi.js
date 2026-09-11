@@ -1,0 +1,46 @@
+const API_BASE_URL = "https://ghdev.seedandbeyond.com:20100/b1s/v2/sml.svc/CV_GH_MONTHENDAUDIT_VW";
+const API_2_BASE_URL = "https://ghdev.seedandbeyond.com:20100/b1s/v2/sml.svc/CV_GH_BATCHQUERY_VW";
+
+const API_HEADERS = {
+  Authorization: "Basic eyJVc2VyTmFtZSI6IlNoaXZhcmFqIiwiQ29tcGFueURCIjoiREVWIn06U2hpdmFyYWpAR0g5Yg==",
+  "Content-Type": "application/json",
+};
+
+const AUDIT_DATA_QUERY =
+  "?$filter=U_MetrcLicense%20eq%20%27CCL21-0005102%27&$orderby=DateTime%20desc";
+
+const AUDIT_DETAILS_QUERY =
+  "?$filter=U_MetrcLicense%20eq%20%27CCL21-0005102%27%20and%20Quantity%20ne%200&$select=METRCUID,ItemCode,ItemName,BinLocationCode,U_MetrcLicense,HarvestName";
+
+async function fetchAuditData() {
+  const response = await fetch(`${API_BASE_URL}${AUDIT_DATA_QUERY}`, {
+    method: "GET",
+    headers: API_HEADERS,
+  });
+
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+
+async function fetchAuditDetails() {
+  const response = await fetch(
+    `${API_2_BASE_URL}${AUDIT_DETAILS_QUERY}`,
+    {
+      method: "GET",
+      headers: API_HEADERS,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`API 2 request failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export { fetchAuditData };
+export { fetchAuditDetails };
