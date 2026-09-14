@@ -98,23 +98,23 @@ const linesMatched = totalCountEntries - linesFlagged;
   console.log("Lines matched exactly:", linesMatched);
 
   return (
-    <main>
+     <main className="audit-report">
       <h1>Month End Audit Report</h1>
 
        <AuditSummary countersActive={countersActive} 
          linesFlagged={linesFlagged}
   linesMatched={linesMatched}/>
 
-      <p>Total API records: {auditData.length}</p>
-
-      <p>Unique packages: {uniquePackages}</p>
+    
 
   <div className="audit-visuals">
   <PackageCountByItem auditDetails={auditDetails} />
 
   <PackagesByCounter counterData={counterData} />
 </div>
-      <CountDetail auditDetails={auditDetails} />
+      <CountDetail 
+      auditDetails={auditDetails}
+        auditData={auditData} />
     </main>
   );
 }

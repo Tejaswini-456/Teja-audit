@@ -104,8 +104,9 @@
   color: #ffffff;
 }
 
-.count-detail-tabs button:first-child {
+.count-detail-tabs button.active {
   background: #3a4046;
+
   color: #ffffff;
 }
 
@@ -120,6 +121,7 @@
 .count-detail-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .count-detail-table th {

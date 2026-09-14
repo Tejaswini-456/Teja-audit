@@ -52,7 +52,7 @@ function PackageCountByItem({ auditDetails }) {
       <p>Count of count entries per item, top 20</p>
 
       <div className="package-count-chart">
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={top20Items}
             margin={{
