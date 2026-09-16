@@ -25,7 +25,6 @@ async function fetchAuditData() {
   return response.json();
 }
 
-
 async function fetchAuditDetails() {
   const response = await fetch(
     `${API_2_BASE_URL}${AUDIT_DETAILS_QUERY}`,
@@ -42,5 +41,41 @@ async function fetchAuditDetails() {
   return response.json();
 }
 
+async function fetchAuditDataPage(skip = 0, top = 50) {
+  const response = await fetch(
+    `${API_BASE_URL}${AUDIT_DATA_QUERY}&$skip=${skip}&$top=${top}`,
+    {
+      method: "GET",
+      headers: API_HEADERS,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Audit data page request failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function fetchAuditDetailsPage(skip = 0, top = 50) {
+  const response = await fetch(
+    `${API_2_BASE_URL}${AUDIT_DETAILS_QUERY}&$skip=${skip}&$top=${top}`,
+    {
+      method: "GET",
+      headers: API_HEADERS,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Audit details page request failed: ${response.status}`
+    );
+  }
+
+  return response.json();
+}
+
 export { fetchAuditData };
 export { fetchAuditDetails };
+export { fetchAuditDataPage };
+export { fetchAuditDetailsPage };

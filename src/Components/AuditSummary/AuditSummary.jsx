@@ -1,24 +1,49 @@
 import "./AuditSummary.css";
-function AuditSummary({countersActive,linesFlagged,
-  linesMatched }) {
+
+function AuditSummary({
+  auditCoverage,
+  allLinesCount,
+  totalAuditLines,
+  countersActive,
+  linesFlagged,
+  linesMatched
+}) {
   return (
     <section className="audit-summary">
       <div className="summary-card">
         <p className="summary-title">AUDIT COVERAGE</p>
-        <h2 className="summary-value">%</h2>
-        <p className="summary-description">x of y items counted</p>
+
+        <h2 className="summary-value">
+          {auditCoverage.toFixed(0)}%
+        </h2>
+
+        <p className="summary-description">
+          {allLinesCount} of {totalAuditLines} items counted
+        </p>
       </div>
 
       <div className="summary-card">
         <p className="summary-title">LINES FLAGGED</p>
-        <h2 className="summary-value">{linesFlagged}</h2>
-        <p className="summary-description">{linesMatched} lines matched exactly</p>
+
+        <h2 className="summary-value">
+          {linesFlagged}
+        </h2>
+
+        <p className="summary-description">
+          {linesMatched} lines matched exactly
+        </p>
       </div>
 
       <div className="summary-card">
         <p className="summary-title">COUNTERS ACTIVE</p>
-        <h2 className="summary-value">{countersActive}</h2>
-        <p className="summary-description">Employees submitting counts</p>
+
+        <h2 className="summary-value">
+          {countersActive}
+        </h2>
+
+        <p className="summary-description">
+          Employees submitting counts
+        </p>
       </div>
     </section>
   );

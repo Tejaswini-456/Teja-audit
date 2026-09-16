@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { fetchAuditData,fetchAuditDetails} from "../services/auditApi";
+import {
+  fetchAuditData,
+  fetchAuditDetails
+} from "../services/auditApi";
 import AuditSummary from "../Components/AuditSummary/AuditSummary";
 import CountDetail from "../Components/CountDetail/CountDetail";
 import PackagesByCounter from "../Components/PackagesByCounter/PackagesByCounter";
@@ -25,23 +28,23 @@ function AuditReport() {
     }
 
     async function loadAuditDetails() {
-  try {
-    const data = await fetchAuditDetails();
+      try {
+        const data = await fetchAuditDetails();
 
-    console.log("API 2 full response:", data);
-    console.log("API 2 records:", data.value);
+        console.log("API 2 full response:", data);
+        console.log("API 2 records:", data.value);
 
-    setAuditDetails(data.value || []);
-  } catch (error) {
-    console.error("API 2 error:", error);
-  }
-}
+        setAuditDetails(data.value || []);
+      } catch (error) {
+        console.error("API 2 error:", error);
+      }
+    }
 
    async function loadData() {
   await loadAuditData();
   await loadAuditDetails();
 }
-
+ 
 loadData();
   }, []);
 
@@ -81,40 +84,106 @@ loadData();
   console.log("Packages counted by counter:", counterData);
 
   const countersActive = counterData.length;
+
   const linesFlagged = auditData.filter(
-  (item) => Number(item.Desc_Qty) !== 0
-).length;
+    (item) => Number(item.Desc_Qty) !== 0
+  ).length;
 
-const totalCountEntries = counterData.reduce(
-  (total, item) => total + item.packageCount,
-  0
-);
+  const totalCountEntries = counterData.reduce(
+    (total, item) => total + item.packageCount,
+    0
+  );
 
-const linesMatched = totalCountEntries - linesFlagged;
+  const linesMatched = totalCountEntries - linesFlagged;
 
-  console.log("Counters active:", countersActive);
-  console.log("Lines flagged:", linesFlagged);
-  console.log("Total count entries:", totalCountEntries);
-  console.log("Lines matched exactly:", linesMatched);
+  const allLinesCount = auditData.length;
+  const notAuditedCount = auditDetails.length;
+  const totalAuditLines = allLinesCount + notAuditedCount;
+
+  const auditCoverage =
+    totalAuditLines > 0
+      ? (allLinesCount / totalAuditLines) * 100
+      : 0;
+
+  const currentDate = new Date();
+
+  const currentMonth = currentDate.toLocaleString(
+    "en-US",
+    {
+      month: "long"
+    }
+  );
+
+  const currentYear = currentDate.getFullYear();
+
+  const lastDayOfMonth = new Date(
+    currentYear,
+    currentDate.getMonth() + 1,
+    0
+  ).getDate();
+
+  const periodText = `${currentMonth} ${currentYear}`;
+  const closingDateText = `${currentMonth.slice(0, 3)} ${lastDayOfMonth}`;
 
   return (
-     <main className="audit-report">
-      <h1>Month End Audit Report</h1>
+    <main className="audit-report">
+      <header className="audit-report-header">
+        <div className="audit-report-title">
+          <h1>Month End Audit Report</h1>
 
-       <AuditSummary countersActive={countersActive} 
-         linesFlagged={linesFlagged}
-  linesMatched={linesMatched}/>
+        <p>
+  {allLinesCount} OF {totalAuditLines} PACKAGES AUDITED
+</p>
+        </div>
 
-    
+        <div className="audit-report-controls">
+          <div className="audit-report-period">
+            <span className="audit-report-period-label">
+              PERIOD
+            </span>
 
-  <div className="audit-visuals">
-  <PackageCountByItem auditDetails={auditDetails} />
+            <span className="audit-report-period-value">
+              {periodText} • closes {closingDateText}
+            </span>
+          </div>
 
-  <PackagesByCounter counterData={counterData} />
-</div>
-      <CountDetail 
-      auditDetails={auditDetails}
-        auditData={auditData} />
+          <button
+            type="button"
+            className="audit-header-icon-button"
+            aria-label="Refresh"
+          >
+            ↻
+          </button>
+
+          <button
+            type="button"
+            className="audit-clear-data-button"
+          >
+            {/* <span className="audit-clear-icon">□</span> */}
+            Clear Data
+          </button>
+        </div>
+      </header>
+
+      <AuditSummary
+        auditCoverage={auditCoverage}
+        allLinesCount={allLinesCount}
+        totalAuditLines={totalAuditLines}
+        countersActive={countersActive}
+        linesFlagged={linesFlagged}
+        linesMatched={linesMatched}
+      />
+
+      <div className="audit-visuals">
+        <PackageCountByItem auditDetails={auditDetails} />
+
+        <PackagesByCounter counterData={counterData} />
+      </div>
+
+      <CountDetail
+        auditDetails={auditDetails}
+        auditData={auditData}
+      />
     </main>
   );
 }

@@ -7,11 +7,135 @@
   color: #f2f2f2;
 }
 
+.audit-report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.audit-report-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .audit-report h1 {
-  margin: 0 0 16px;
+  margin: 0;
   color: #f2f2f2;
   font-size: 28px;
   font-weight: 600;
+}
+
+.audit-report-title p {
+  margin: 0;
+  color: #a5a5a5;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.audit-report-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.audit-report-period {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  margin-right: 4px;
+}
+
+.audit-report-period-label {
+  color: #8f9499;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.audit-report-period-value {
+  color: #e6e6e6;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.audit-header-icon-button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #34383d;
+  border-radius: 10px;
+  background: #232629;
+  color: #d6d8da;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.audit-header-icon-button:hover {
+  background: #2b2e32;
+  border-color: #4a4f55;
+}
+
+.audit-clear-data-button {
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid #4b3232;
+  border-radius: 10px;
+  background: #302426;
+  color: #d85c5c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.audit-clear-data-button:hover {
+  background: #392a2c;
+  border-color: #674040;
+}
+
+.audit-clear-icon {
+  margin-right: 7px;
+  font-size: 12px;
+}
+
+.audit-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.summary-card {
+  padding: 16px;
+  border: 1px solid #3a3d40;
+  border-radius: 14px;
+  background-color: #27292b;
+  min-height: 100px;
+}
+
+.summary-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b8b8b8;
+}
+
+.summary-value {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.summary-description {
+  margin: 0;
+  font-size: 13px;
+  color: #a5a5a5;
 }
 
 .audit-visuals {
