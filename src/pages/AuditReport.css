@@ -98,11 +98,6 @@
   border-color: #674040;
 }
 
-.audit-clear-icon {
-  margin-right: 7px;
-  font-size: 12px;
-}
-
 .audit-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -143,4 +138,20 @@
   grid-template-columns: 2fr 1fr;
   gap: 12px;
   align-items: stretch;
+}
+
+.audit-data-pending .packages-by-counter > * {
+  visibility: hidden;
+}
+
+.audit-details-pending .package-count-by-item > * {
+  visibility: hidden;
+}
+
+.audit-data-pending .audit-summary .summary-card > * {
+  visibility: hidden;
+}
+
+.audit-page-pending .count-detail > * {
+  visibility: hidden;
 }

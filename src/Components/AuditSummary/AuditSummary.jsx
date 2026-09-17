@@ -14,11 +14,16 @@ function AuditSummary({
         <p className="summary-title">AUDIT COVERAGE</p>
 
         <h2 className="summary-value">
-          {auditCoverage.toFixed(0)}%
+          {auditCoverage === null
+            ? ""
+            : `${auditCoverage.toFixed(0)}%`}
         </h2>
 
         <p className="summary-description">
-          {allLinesCount} of {totalAuditLines} items counted
+          {allLinesCount === null ||
+          totalAuditLines === null
+            ? ""
+            : `${allLinesCount} of ${totalAuditLines} items counted`}
         </p>
       </div>
 
@@ -26,11 +31,15 @@ function AuditSummary({
         <p className="summary-title">LINES FLAGGED</p>
 
         <h2 className="summary-value">
-          {linesFlagged}
+          {linesFlagged === null
+            ? ""
+            : linesFlagged}
         </h2>
 
         <p className="summary-description">
-          {linesMatched} lines matched exactly
+          {linesMatched === null
+            ? ""
+            : `${linesMatched} lines matched exactly`}
         </p>
       </div>
 
@@ -38,7 +47,9 @@ function AuditSummary({
         <p className="summary-title">COUNTERS ACTIVE</p>
 
         <h2 className="summary-value">
-          {countersActive}
+          {countersActive === null
+            ? ""
+            : countersActive}
         </h2>
 
         <p className="summary-description">

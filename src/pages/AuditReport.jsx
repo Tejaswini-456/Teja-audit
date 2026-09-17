@@ -12,6 +12,8 @@ import "./AuditReport.css";
 function AuditReport() {
   const [auditData, setAuditData] = useState([]);
   const [auditDetails, setAuditDetails] = useState([]);
+  const [auditDataLoaded, setAuditDataLoaded] = useState(false);
+  const [auditDetailsLoaded, setAuditDetailsLoaded] = useState(false);
 
   useEffect(() => {
     async function loadAuditData() {
@@ -22,6 +24,7 @@ function AuditReport() {
         console.log("API 1 records:", data.value);
 
         setAuditData(data.value || []);
+        setAuditDataLoaded(true);
       } catch (error) {
         console.error("API 1 error:", error);
       }
@@ -35,17 +38,18 @@ function AuditReport() {
         console.log("API 2 records:", data.value);
 
         setAuditDetails(data.value || []);
+        setAuditDetailsLoaded(true);
       } catch (error) {
         console.error("API 2 error:", error);
       }
     }
 
-   async function loadData() {
-  await loadAuditData();
-  await loadAuditDetails();
-}
- 
-loadData();
+    async function loadData() {
+      await loadAuditData();
+      await loadAuditDetails();
+    }
+
+    loadData();
   }, []);
 
   const uniquePackages = new Set(
@@ -125,15 +129,29 @@ loadData();
   const periodText = `${currentMonth} ${currentYear}`;
   const closingDateText = `${currentMonth.slice(0, 3)} ${lastDayOfMonth}`;
 
+  const pageDataLoaded =
+    auditDataLoaded && auditDetailsLoaded;
+
+  const auditReportClassName = [
+    "audit-report",
+    !auditDataLoaded ? "audit-data-pending" : "",
+    !auditDetailsLoaded ? "audit-details-pending" : "",
+    !pageDataLoaded ? "audit-page-pending" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <main className="audit-report">
+    <main className={auditReportClassName}>
       <header className="audit-report-header">
         <div className="audit-report-title">
           <h1>Month End Audit Report</h1>
 
-        <p>
-  {allLinesCount} OF {totalAuditLines} PACKAGES AUDITED
-</p>
+          <p>
+            {pageDataLoaded
+              ? `${allLinesCount} OF ${totalAuditLines} PACKAGES AUDITED`
+              : ""}
+          </p>
         </div>
 
         <div className="audit-report-controls">
@@ -159,25 +177,40 @@ loadData();
             type="button"
             className="audit-clear-data-button"
           >
-            {/* <span className="audit-clear-icon">□</span> */}
             Clear Data
           </button>
         </div>
       </header>
 
       <AuditSummary
-        auditCoverage={auditCoverage}
-        allLinesCount={allLinesCount}
-        totalAuditLines={totalAuditLines}
-        countersActive={countersActive}
-        linesFlagged={linesFlagged}
-        linesMatched={linesMatched}
+        auditCoverage={
+          pageDataLoaded ? auditCoverage : null
+        }
+        allLinesCount={
+          pageDataLoaded ? allLinesCount : null
+        }
+        totalAuditLines={
+          pageDataLoaded ? totalAuditLines : null
+        }
+        countersActive={
+          auditDataLoaded ? countersActive : null
+        }
+        linesFlagged={
+          auditDataLoaded ? linesFlagged : null
+        }
+        linesMatched={
+          auditDataLoaded ? linesMatched : null
+        }
       />
 
       <div className="audit-visuals">
-        <PackageCountByItem auditDetails={auditDetails} />
+        <PackageCountByItem
+          auditDetails={auditDetails}
+        />
 
-        <PackagesByCounter counterData={counterData} />
+        <PackagesByCounter
+          counterData={counterData}
+        />
       </div>
 
       <CountDetail
