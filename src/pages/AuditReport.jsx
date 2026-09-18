@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   fetchAuditData,
-  fetchAuditDetails
+  fetchAuditDetails,
+  fetchItemGroupCounts
 } from "../services/auditApi";
 import AuditSummary from "../Components/AuditSummary/AuditSummary";
 import CountDetail from "../Components/CountDetail/CountDetail";
@@ -12,41 +13,40 @@ import "./AuditReport.css";
 function AuditReport() {
   const [auditData, setAuditData] = useState([]);
   const [auditDetails, setAuditDetails] = useState([]);
+  const [itemGroupCounts, setItemGroupCounts] = useState([]);
   const [auditDataLoaded, setAuditDataLoaded] = useState(false);
   const [auditDetailsLoaded, setAuditDetailsLoaded] = useState(false);
+  const [itemGroupCountsLoaded, setItemGroupCountsLoaded] = useState(false);
 
   useEffect(() => {
-    async function loadAuditData() {
-      try {
-        const data = await fetchAuditData();
-
-        console.log("API 1 full response:", data);
-        console.log("API 1 records:", data.value);
-
-        setAuditData(data.value || []);
-        setAuditDataLoaded(true);
-      } catch (error) {
-        console.error("API 1 error:", error);
-      }
-    }
-
-    async function loadAuditDetails() {
-      try {
-        const data = await fetchAuditDetails();
-
-        console.log("API 2 full response:", data);
-        console.log("API 2 records:", data.value);
-
-        setAuditDetails(data.value || []);
-        setAuditDetailsLoaded(true);
-      } catch (error) {
-        console.error("API 2 error:", error);
-      }
-    }
-
     async function loadData() {
-      await loadAuditData();
-      await loadAuditDetails();
+      try {
+        const data1 = await fetchAuditData();
+
+        console.log("API 1 full response:", data1);
+        console.log("API 1 records:", data1.value);
+
+        setAuditData(data1.value || []);
+        setAuditDataLoaded(true);
+
+        const data2 = await fetchAuditDetails();
+
+        console.log("API 2 full response:", data2);
+        console.log("API 2 records:", data2.value);
+
+        setAuditDetails(data2.value || []);
+        setAuditDetailsLoaded(true);
+
+        const data3 = await fetchItemGroupCounts();
+
+        console.log("Item group count full response:", data3);
+        console.log("Item group count records:", data3.value);
+
+        setItemGroupCounts(data3.value || []);
+        setItemGroupCountsLoaded(true);
+      } catch (error) {
+        console.error("API error:", error);
+      }
     }
 
     loadData();
@@ -136,6 +136,7 @@ function AuditReport() {
     "audit-report",
     !auditDataLoaded ? "audit-data-pending" : "",
     !auditDetailsLoaded ? "audit-details-pending" : "",
+    !itemGroupCountsLoaded ? "item-group-counts-pending" : "",
     !pageDataLoaded ? "audit-page-pending" : ""
   ]
     .filter(Boolean)
@@ -205,7 +206,7 @@ function AuditReport() {
 
       <div className="audit-visuals">
         <PackageCountByItem
-          auditDetails={auditDetails}
+          itemGroupCounts={itemGroupCounts}
         />
 
         <PackagesByCounter

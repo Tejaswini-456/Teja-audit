@@ -45,8 +45,9 @@
 }
 
 .package-count-chart {
-  width: 100%;
+  width: 78%;
   height: 250px;
+  margin: 20px auto 0;
 }
 
 .package-count-by-item.expanded {

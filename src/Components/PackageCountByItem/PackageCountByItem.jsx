@@ -11,42 +11,22 @@ import {
 } from "recharts";
 import "./PackageCountByItem.css";
 
-function PackageCountByItem({ auditDetails }) {
+function PackageCountByItem({ itemGroupCounts }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const itemCounts = new Map();
+  const itemGroupData = itemGroupCounts
+    .filter((item) => item.ItmsGrpNam)
+    .map((item) => ({
+      itemGroupName: item.ItmsGrpNam,
+      count: Number(item.records) || 0,
+    }));
 
-  auditDetails.forEach((item) => {
-    const itemName = item.ItemName;
-
-    if (!itemName) {
-      return;
-    }
-
-    if (!itemCounts.has(itemName)) {
-      itemCounts.set(itemName, 0);
-    }
-
-    itemCounts.set(
-      itemName,
-      itemCounts.get(itemName) + 1
-    );
-  });
-
-  const itemData = Array.from(
-    itemCounts,
-    ([itemName, count]) => ({
-      itemName,
-      count,
-    })
-  );
-
-  const top20Items = itemData
+  const top20ItemGroups = itemGroupData
     .sort((a, b) => b.count - a.count)
     .slice(0, 20);
 
-  console.log("Item counts:", itemData);
-  console.log("Top 20 items:", top20Items);
+  console.log("Item group counts:", itemGroupData);
+  console.log("Top 20 item groups:", top20ItemGroups);
 
   return (
     <section
@@ -56,8 +36,8 @@ function PackageCountByItem({ auditDetails }) {
     >
       <div className="package-count-header">
         <div>
-          <h2>Package count by item</h2>
-          <p>Count of count entries per item, top 20</p>
+          <h2>Package count by item group</h2>
+          <p>Count of audit records per item group, top 20</p>
         </div>
 
         <button
@@ -73,25 +53,25 @@ function PackageCountByItem({ auditDetails }) {
 
       <div className="package-count-chart">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={top20Items}
-            margin={{
-              top: 30,
-              right: 20,
-              left: 10,
-              bottom: 20,
-            }}
-          >
+     <BarChart
+  data={top20ItemGroups}
+  margin={{
+    top: 30,
+    right: 20,
+    left: 10,
+    bottom: 20,
+  }}
+  barCategoryGap="4%"
+>
             <CartesianGrid
               vertical={false}
               horizontal={true}
               stroke="#3a3d40"
             />
-
-            <XAxis
-              dataKey="itemName"
-              tick={false}
-            />
+<XAxis
+  dataKey="itemGroupName"
+  tick={false}
+/>
 
             <YAxis
               tickCount={5}
@@ -100,11 +80,11 @@ function PackageCountByItem({ auditDetails }) {
 
             <Tooltip />
 
-            <Bar
-              dataKey="count"
-              fill="#20c997"
-              barSize={18}
-            >
+           <Bar
+  dataKey="count"
+  fill="#20c997"
+  barSize={18}
+>
               <LabelList
                 dataKey="count"
                 position="top"
